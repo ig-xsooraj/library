@@ -29,6 +29,8 @@ public class UserController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private CheckoutReppo CheckoutRepository ;
 
 	@PostMapping("/login")
 	public boolean login(@RequestBody Map<String, String> credentials) {
@@ -65,8 +67,12 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to return book: " + e.getMessage());
         }
     }
-    
-    @GetMapping
+   @GetMapping('/checkout')
+    public List<User> getAllBooks()
+    {
+    	return CheckoutReppo.findAll();
+    }
+    @GetMapping('/details)
     public List<User> getAllBooks()
     {
     	return userRepository.findAll();
